@@ -1,4 +1,6 @@
-* {
+html, body {
+    
+    height: 100%;
     margin: 0;
     padding: 0;
     box-sizing: border-box;
@@ -6,13 +8,28 @@
 }
 
 body {
-    /* display: flex;
+    display: flex;
     flex-direction: column;
-    justify-content: space-between; */
     min-height: 100vh;
-    color: white;
-    background-color: #f0f8f5;
-    background-color: #000;
+    color: rgb(1, 32, 0);
+    background-color: #ffffff;
+}
+
+.content-wrapper {
+    flex: 1 0 auto;
+    display: flex;
+    flex-direction: column;
+}
+
+main {
+    flex: 1 0 auto;
+}
+
+footer {
+    flex-shrink: 0;
+    padding: 20px;
+    background-color: #f0f0f0;
+    text-align: center;
 }
 
 .bg {
@@ -118,11 +135,34 @@ footer {
     width: 100%;
     bottom: 0;
     text-align: center;
-    padding: 20px;
+    padding: 10px;
     background-color: #333;
     color: white;
 }
 
 #footer {
     font-size: 15px;
+}
+select {
+    width: 100%;
+    padding: 12px 15px;
+    margin-bottom: 20px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    background-color: #fff;
+    font-size: 1rem;
+    color: #333;
+    appearance: none; /* Remove default styling */
+    background: url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxMDAiIGhlaWdodD0iMTAwIj4KICA8cGF0aCBkPSJNNTAsMTAgTDI1LDE5IDQwLDEwIDI1LDE5IDI1LDEwIDI1LDEwIE0yMiwzMCBMNDAsNzAgNDAsNCAyMiwzMCAiIHN0cm9rZT0iIzMzMyIgLz4KPC9zdmc+'); /* Custom down arrow icon */
+    background-size: 12px;
+    background-position: right 10px center;
+    background-repeat: no-repeat;
+    cursor: pointer;
+    transition: border-color 0.3s;
+}
+
+select:focus {
+    border-color: #4CAF50;
+    outline: none; /* Remove default focus outline */
+    box-shadow: 0 0 5px rgba(76, 175, 80, 0.3);
 }

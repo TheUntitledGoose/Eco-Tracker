@@ -11,57 +11,60 @@
     <link href="https://fonts.googleapis.com/css2?family=PT+Sans:ital,wght@0,400;0,700;1,400;1,700&display=swap" rel="stylesheet">
 </head>
 <body>
-    <header>
-        <h1>Log Your Daily Activities</h1>
-        <p>Tell us what you did today to track your carbon footprint.</p>
-    </header>
+    <div class="content-wrapper">
+        <header>
+            <h1>Log Your Daily Activities</h1>
+            <p>Tell us what you did today to track your carbon footprint.</p>
+        </header>
+<br></br>
+        <main>
+            <section class="activity-form-section">
+                <form id="activityForm">
+                    <!-- Transportation Input -->
+                    <label for="transportation">Transportation Method:</label>
+                    <select name="transportation" id="transportation" required>
+                        <option value="car">Car</option>
+                        <option value="bus">Bus</option>
+                        <option value="bike">Bike</option>
+                        <option value="walking">Walking</option>
+                        <option value="plane">Plane</option>
+                    </select>
 
-    <section class="activity-form-section">
-        <form id="activityForm">
-            <!-- Transportation Input -->
-            <label for="transportation">Transportation Method:</label>
-            <select name="transportation" id="transportation" required>
-                <option value="car">Car</option>
-                <option value="bus">Bus</option>
-                <option value="bike">Bike</option>
-                <option value="walking">Walking</option>
-                <option value="plane">Plane</option>
-            </select>
+                    <!-- Distance -->
+                    <label for="distance">Distance Traveled (in miles):</label>
+                    <input type="number" name="distance" id="distance" placeholder="Enter distance" step="0.01" required>
 
-            <!-- Distance -->
-            <label for="distance">Distance Traveled (in miles):</label>
-            <input type="number" name="distance" id="distance" placeholder="Enter distance" step="0.01" required>
+                    <!-- Energy Input -->
+                    <label for="energy">Energy Usage (hours):</label>
+                    <input type="number" name="energy" id="energy" placeholder="Hours of electricity used" step="0.01" required>
 
-            <!-- Energy Input -->
-            <label for="energy">Energy Usage (hours):</label>
-            <input type="number" name="energy" id="energy" placeholder="Hours of electricity used" step="0.01" required>
+                    <!-- Waste Input -->
+                    <label for="waste">Waste Produced:</label>
+                    <select name="waste" id="waste" required>
+                        <option value="plastic">Plastic</option>
+                        <option value="paper">Paper</option>
+                        <option value="metal">Metal</option>
+                        <option value="organic">Organic</option>
+                    </select>
 
-            <!-- Waste Input -->
-            <label for="waste">Waste Produced:</label>
-            <select name="waste" id="waste" required>
-                <option value="plastic">Plastic</option>
-                <option value="paper">Paper</option>
-                <option value="metal">Metal</option>
-                <option value="organic">Organic</option>
-            </select>
+                    <!-- Food Input -->
+                    <label for="food">Food Type Consumed:</label>
+                    <select name="food" id="food" required>
+                        <option value="meat">Meat</option>
+                        <option value="vegetarian">Vegetarian</option>
+                        <option value="vegan">Vegan</option>
+                    </select>
 
-            <!-- Food Input -->
-            <label for="food">Food Type Consumed:</label>
-            <select name="food" id="food" required>
-                <option value="meat">Meat</option>
-                <option value="vegetarian">Vegetarian</option>
-                <option value="vegan">Vegan</option>
-            </select>
+                    <!-- Submit Button -->
+                    <button type="submit" class="submit-button">Submit</button>
+                </form>
+            </section>
+        </main>
 
-            <!-- Submit Button -->
-            <button type="submit" class="submit-button">Submit</button>
-        </form>
-    </section>
-
-    <footer>
-        <p>© 2024 Eco Tracker | Track your carbon footprint</p>
-    </footer>
-
+        <footer>
+            <p>© 2024 Eco Tracker | Track your carbon footprint</p>
+        </footer>
+    </div>
     <script>
         document.getElementById('activityForm').addEventListener('submit', function(event) {
             event.preventDefault();
@@ -91,4 +94,3 @@
         });
     </script>
 </body>
-</html>
