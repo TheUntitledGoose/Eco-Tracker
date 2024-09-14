@@ -6,15 +6,77 @@
 }
 
 body {
-    display: flex;
+    /* display: flex;
     flex-direction: column;
-    justify-content: space-between;
+    justify-content: space-between; */
     min-height: 100vh;
+    color: white;
     background-color: #f0f8f5;
-    color: #333;
+    background-color: #000;
 }
 
+.bg {
+    position: absolute;
+    top: -15%;
+    width: 100%;
+    height: auto;
+    filter: brightness(50%);
+}
+
+.bg_div {
+    height: 100%;
+}
+
+.center {
+    color: white;
+    width: auto;
+    height: auto;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-40%,-50%);
+    filter: brightness(100%) !important;
+}
+
+.bold {
+    font-weight: 700;
+    position: relative;
+}
+
+.bold::before {
+    content: '';
+    display: block;
+    position: absolute;
+    top: 0%;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(255, 255, 255, .2);
+}
+
+p {
+    font-family: "PT Sans", sans-serif;
+    font-size: 75px;
+    filter: brightness(100%);
+}
+
+/* for phone users, the bg is messed up */
+/* @media screen and (max-width: 500px) {
+    .bg {
+        transform: rotate(-30deg);
+        background-image: url('assets/leaf_bg.jpg');
+        background-size: 200%;
+        overflow: visible;
+        background-repeat:no-repeat;
+        background-position: 50%;
+        width: 100%;
+        height: 100%;
+        filter: brightness(50%);
+    }
+}   */
+
+
 header {
+    /* position: absolute; */
     text-align: center;
     padding: 50px 20px;
     background-color: #4CAF50;
@@ -51,8 +113,16 @@ header p {
 }
 
 footer {
+    position:static;
+    height: auto;
+    width: 100%;
+    bottom: 0;
     text-align: center;
     padding: 20px;
     background-color: #333;
     color: white;
+}
+
+#footer {
+    font-size: 15px;
 }
