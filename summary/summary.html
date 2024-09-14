@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Carbon Footprint Summary | Eco Tracker</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <header>
+        <h1>Your Carbon Footprint Summary</h1>
+        <p>Here’s an overview of your carbon emissions for the day.</p>
+    </header>
+
+    <section class="summary-section">
+        <div id="summary"></div>
+    </section>
+
+    <section class="recommendations-section">
+        <h2>Recommendations to Reduce Your Carbon Footprint</h2>
+        <ul id="recommendations"></ul>
+    </section>
+
+    <footer>
+        <p>© 2024 Eco Tracker | Helping you live sustainably</p>
+    </footer>
+
+    <script>
+        // Retrieve stored values from localStorage
+        const transportation = localStorage.getItem('transportation');
+        const distance = parseFloat(localStorage.getItem('distance'));
+        const energy = parseFloat(localStorage.getItem('energy'));
+        const waste = localStorage.getItem('waste');
+        const food = localStorage.getItem('food');
+
+        // Emission factors (example values) in pounds
+        const emissionsPerMile = {
+            car: 0.308,  // lbs CO2 per mile for a car
+            bus: 0.066,  // lbs CO2 per mile for a bus
+            bike: 0,     // No emissions for biking
+            walking: 0,  // No emissions for walking
+            plane: 0.243 // lbs CO2 per mile for a plane
+        };
+
+        const emissionsPerHourElectricity = 1.102; // lbs CO2 per hour of electricity
+
+        // Calculations
+        const transportationEmissions = (distance * emissionsPerMile[transportation]).toFixed(2);
+        const energyEmissions = (energy * emissionsPerHourElectricity).toFixed(2);
+
+        // Display the summary with calculated values
+        document.getElementById('summary').innerHTML = `
+            <div class="summary-box">
+                <h2>Transportation</h2>
+                <p>You traveled <strong>${distance} miles</strong> by <strong>${transportation}</strong>, emitting <strong>${transportationEmissions} lbs CO₂</strong>.</p>
+            </div>
+
+            <div class="summary-box">
+                <h2>Energy Usage</h2>
+                <p>You used electricity for <strong>${energy} hours</strong>, emitting <strong>${energyEmissions} lbs CO₂</strong>.</p>
+            </div>
+        `;
+
+        // Recommendations
+        const recommendations = [];
+        if (transportation === 'car' || transportation === 'plane') {
+            recommendations.push('Consider carpooling or using public transportation to reduce transportation emissions.');
+        }
+        if (energy > 0) {
+            recommendations.push('Switch off devices when not in use to lower your energy consumption.');
+        }
+        if (waste === 'plastic') {
+            recommendations.push('Try recycling or reducing plastic waste.');
+        }
+        if (food === 'meat') {
+            recommendations.push('Incorporate more plant-based meals into your diet to reduce food-related emissions.');
+        }
+
+        document.getElementById('recommendations').innerHTML = recommendations.map(rec => `<li>${rec}</li>`).join('');
+    </script>
+</body>
+</html>
