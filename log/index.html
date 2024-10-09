@@ -3,94 +3,103 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Log Your Activities | Eco Tracker</title>
+    <title>Carbon Footprint Summary | Eco Tracker</title>
     <link rel="stylesheet" href="styles.css">
-    
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=PT+Sans:ital,wght@0,400;0,700;1,400;1,700&display=swap" rel="stylesheet">
 </head>
 <body>
-    <div class="content-wrapper">
-        <header>
-            <h1>Log Your Daily Activities</h1>
-            <p>Tell us what you did today to track your carbon footprint.</p>
-        </header>
-<br></br>
-        <main>
-            <section class="activity-form-section">
-                <form id="activityForm">
-                    <!-- Transportation Input -->
-                    <label for="transportation">Transportation Method:</label>
-                    <select name="transportation" id="transportation" required>
-                        <option value="car">Car</option>
-                        <option value="bus">Bus</option>
-                        <option value="bike">Bike</option>
-                        <option value="walking">Walking</option>
-                        <option value="plane">Plane</option>
-                    </select>
+    <header>
+        <h1>Your Carbon Footprint Summary</h1>
+        <p>Here’s an overview of your carbon emissions for the day.</p>
+        <section class="streak-section">
+       
+            <h2 id="streak-display"></h2>
+        </section>
+    </header>
 
-                    <!-- Distance -->
-                    <label for="distance">Distance Traveled (in miles):</label>
-                    <input type="number" name="distance" id="distance" placeholder="Enter distance" step="0.01" required>
+    <section class="summary-section">
+        <div id="summary"></div>        
+    </section>
 
-                    <!-- Energy Input -->
-                    <label for="energy">Energy Usage (hours):</label>
-                    <input type="number" name="energy" id="energy" placeholder="Hours of electricity used" step="0.01" required>
+    <section class="recommendations-section">
+        <h2>Recommendations to Reduce Your Carbon Footprint</h2>
+        <ul id="recommendations"></ul>
+    </section>
 
-                    <!-- Waste Input -->
-                    <label for="waste">Waste Produced:</label>
-                    <select name="waste" id="waste" required>
-                        <option value="plastic">Plastic</option>
-                        <option value="paper">Paper</option>
-                        <option value="metal">Metal</option>
-                        <option value="organic">Organic</option>
-                    </select>
+    <footer>
+        <p>© 2024 Eco Tracker | Helping you live sustainably</p>
+    </footer>
 
-                    <!-- Food Input -->
-                    <label for="food">Food Type Consumed:</label>
-                    <select name="food" id="food" required>
-                        <option value="meat">Meat</option>
-                        <option value="vegetarian">Vegetarian</option>
-                        <option value="vegan">Vegan</option>
-                    </select>
-
-                    <!-- Submit Button -->
-                    <button type="submit" class="submit-button">Submit</button>
-                </form>
-            </section>
-        </main>
-
-        <footer>
-            <p>© 2024 Eco Tracker | Track your carbon footprint</p>
-        </footer>
-    </div>
     <script>
-        document.getElementById('activityForm').addEventListener('submit', function(event) {
-            event.preventDefault();
+        // Retrieve stored values from localStorage
+        const transportation = localStorage.getItem('transportation');
+        const distance = parseFloat(localStorage.getItem('distance'));
+        const energy = parseFloat(localStorage.getItem('energy'));
+        const waste = localStorage.getItem('waste');
+        const food = localStorage.getItem('food');
 
-            // Get user input values
-            const transportation = document.getElementById('transportation').value;
-            const distance = document.getElementById('distance').value;
-            const energy = document.getElementById('energy').value;
-            const waste = document.getElementById('waste').value;
-            const food = document.getElementById('food').value;
+        // Emission factors (example values) in pounds
+        const emissionsPerMile = {
+            car: 0.308,  // lbs CO2 per mile for a car
+            bus: 0.066,  // lbs CO2 per mile for a bus
+            bike: 0,     // No emissions for biking
+            walking: 0,  // No emissions for walking
+            plane: 0.243 // lbs CO2 per mile for a plane
+        };
 
-            // Validate inputs
-            if (!distance || !energy) {
-                alert('Please enter valid distance and energy values.');
-                return;
+        const emissionsPerHourElectricity = 1.102; // lbs CO2 per hour of electricity
+
+        // Calculations
+        const transportationEmissions = (distance * emissionsPerMile[transportation]).toFixed(2);
+        const energyEmissions = (energy * emissionsPerHourElectricity).toFixed(2);
+
+        // Display the summary with calculated values
+        document.getElementById('summary').innerHTML = `
+            <div class="summary-box">
+                <h2>Transportation</h2>
+                <p>You traveled <strong>${distance} miles</strong> by <strong>${transportation}</strong>, emitting <strong>${transportationEmissions} lbs CO₂</strong>.</p>
+            </div>
+
+            <div class="summary-box">
+                <h2>Energy Usage</h2>
+                <p>You used electricity for <strong>${energy} hours</strong>, emitting <strong>${energyEmissions} lbs CO₂</strong>.</p>
+            </div>
+        `;
+
+        // Recommendations
+        const recommendations = [];
+        if (transportation === 'car' || transportation === 'plane') {
+            recommendations.push('Consider carpooling or using public transportation to reduce transportation emissions.');
+        }
+        if (energy > 0) {
+            recommendations.push('Switch off devices when not in use to lower your energy consumption.');
+        }
+        if (waste === 'plastic') {
+            recommendations.push('Try recycling or reducing plastic waste.');
+        }
+        if (food === 'meat') {
+            recommendations.push('Incorporate more plant-based meals into your diet to reduce food-related emissions.');
+        }
+
+        document.getElementById('recommendations').innerHTML = recommendations.map(rec => `<li>${rec}</li>`).join('');
+
+        // Simplified Streak feature
+        function updateStreak() {
+            const lastLogin = localStorage.getItem('lastLogin');
+            const today = new Date().toDateString();
+            let streak = parseInt(localStorage.getItem('streak') || '0');
+
+            if (lastLogin !== today) {
+                // Increment streak if it’s a new day, or reset to 1
+                streak = lastLogin ? streak + 1 : 1;
+                localStorage.setItem('streak', streak);
+                localStorage.setItem('lastLogin', today);
             }
 
-            // Store them in localStorage to pass to the summary page
-            localStorage.setItem('transportation', transportation);
-            localStorage.setItem('distance', distance);
-            localStorage.setItem('energy', energy);
-            localStorage.setItem('waste', waste);
-            localStorage.setItem('food', food);
+            document.getElementById('streak-display').textContent = `Your current Eco streak: ${streak} day${streak !== 1 ? 's' : ''}`;
+        }
 
-            // Redirect to summary.html
-            window.location.href = '../summary';
-        });
+        // Call updateStreak when the page loads
+        updateStreak();
     </script>
 </body>
+</html>

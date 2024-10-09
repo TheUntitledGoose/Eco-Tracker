@@ -10,10 +10,14 @@
     <header>
         <h1>Your Carbon Footprint Summary</h1>
         <p>Here’s an overview of your carbon emissions for the day.</p>
+        <section class="streak-section">
+            <h2>Your Eco Streak</h2>
+            <p id="streak-display"></p>
+        </section>
     </header>
 
     <section class="summary-section">
-        <div id="summary"></div>
+        <div id="summary"></div>        
     </section>
 
     <section class="recommendations-section">
@@ -77,6 +81,25 @@
         }
 
         document.getElementById('recommendations').innerHTML = recommendations.map(rec => `<li>${rec}</li>`).join('');
+
+        // Simplified Streak feature
+        function updateStreak() {
+            const lastLogin = localStorage.getItem('lastLogin');
+            const today = new Date().toDateString();
+            let streak = parseInt(localStorage.getItem('streak') || '0');
+
+            if (lastLogin !== today) {
+                // Increment streak if it’s a new day, or reset to 1
+                streak = lastLogin ? streak + 1 : 1;
+                localStorage.setItem('streak', streak);
+                localStorage.setItem('lastLogin', today);
+            }
+
+            document.getElementById('streak-display').textContent = `Your current streak: ${streak} day${streak !== 1 ? 's' : ''}`;
+        }
+
+        // Call updateStreak when the page loads
+        updateStreak();
     </script>
 </body>
 </html>
