@@ -74,9 +74,8 @@
             <p>© 2024 Eco Tracker | Track your carbon footprint</p>
         </footer> -->
     <script>
-        document.getElementById('activityForm').addEventListener('submit', function(event) {
+        document.getElementsByClassName('submit-button')[0].addEventListener('click', function(event) {
             event.preventDefault();
-
             // Get user input values
             const transportation = document.getElementById('transportation').value;
             const distance = document.getElementById('distance').value;
