@@ -5,6 +5,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Carbon Footprint Summary | Eco Tracker</title>
     <link rel="stylesheet" href="styles.css">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=PT+Sans:ital,wght@0,400;0,700;1,400;1,700&display=swap" rel="stylesheet">
 </head>
 <body>
     <header>
@@ -12,19 +16,15 @@
         <p>Here’s an overview of your carbon emissions for the day.</p>
     </header>
 
-    <section class="summary-section">
-        <div id="summary"></div>
-    </section>
-
-    <section class="recommendations-section">
-        <h2>Recommendations to Reduce Your Carbon Footprint</h2>
-        <ul id="recommendations"></ul>
-    </section>
-
-    <footer>
-        <p>© 2024 Eco Tracker | Helping you live sustainably</p>
-    </footer>
-
+    <div class="summary-div">
+      <div id="summary"></div>
+    </div>
+    
+    <div class="recommendations-div main" style="width: fit-content;">
+      <h2 style="margin: auto; width: 550px;">Recommendations to Reduce Your Carbon Footprint</h2>
+      <ul id="recommendations"></ul>
+    </div>
+    
     <script>
         // Retrieve stored values from localStorage
         const transportation = localStorage.getItem('transportation');
@@ -50,14 +50,14 @@
 
         // Display the summary with calculated values
         document.getElementById('summary').innerHTML = `
-            <div class="summary-box">
-                <h2>Transportation</h2>
-                <p>You traveled <strong>${distance} miles</strong> by <strong>${transportation}</strong>, emitting <strong>${transportationEmissions} lbs CO₂</strong>.</p>
+            <div class="summary-box main">
+                <h1 class="center large">Transportation</h1>
+                <p class="center">You traveled <span class="und"><strong>${distance} miles</strong></span> by <span class="und"><strong>${transportation}</strong></span>, emitting <span class="und"><strong>${transportationEmissions} lbs CO₂</strong></span>.</p>
             </div>
 
-            <div class="summary-box">
-                <h2>Energy Usage</h2>
-                <p>You used electricity for <strong>${energy} hours</strong>, emitting <strong>${energyEmissions} lbs CO₂</strong>.</p>
+            <div class="summary-box main">
+                <h1 class="center large">Energy Usage</h1>
+                <p class="center">You used electricity for <span class="und"><strong>${energy} hours</strong></span>, emitting <span class="und"><strong>${energyEmissions} lbs CO₂</strong></span>.</p>
             </div>
         `;
 
@@ -76,7 +76,7 @@
             recommendations.push('Incorporate more plant-based meals into your diet to reduce food-related emissions.');
         }
 
-        document.getElementById('recommendations').innerHTML = recommendations.map(rec => `<li>${rec}</li>`).join('');
+        document.getElementById('recommendations').innerHTML = recommendations.map(rec => `<li class="bold">${rec}</li>`).join('');
     </script>
 </body>
 </html>
