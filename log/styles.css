@@ -169,13 +169,14 @@ footer {
 }
 select {
     /* width: 100%; */
+    border: solid 1px white;
     padding: 12px 15px;
     margin-left: 20px;
     width: min-content;
     position: absolute;
     right: 0px;
     /* border: 1px solid #ccc; */
-    border: none;
+    /* border: none; */
     border-radius: 5px;
     background-color: transparent;
     font-size: 3rem;
@@ -223,6 +224,7 @@ input {
     min-height: 50px;
     box-shadow: 0px 0px 10px 10px #ffffff2a;
     width: 100px;
+    border: solid 1px white;
 }
 
 select:focus {
